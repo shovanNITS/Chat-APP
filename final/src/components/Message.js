@@ -4,47 +4,23 @@ import { useAuthState } from "react-firebase-hooks/auth";
 
 const Message = ({ message }) => {
   const [user] = useAuthState(auth);
-  const isUserMessage = message.uid === user?.uid;
 
   return (
-    <div
-      className={`flex items-end gap-2 ${
-        isUserMessage ? "justify-end" : "justify-start"
-      }`}
-    >
-      {/* Avatar (only for others, to reduce clutter for self) */}
-      {!isUserMessage && (
-        <img
-          src={message.avatar}
-          alt="user avatar"
-          className="w-8 h-8 rounded-full"
-        />
-      )}
-
-      {/* Bubble */}
-      <div
-        className={`max-w-xs px-4 py-2 rounded-2xl shadow-sm text-sm ${
-          isUserMessage
-            ? "bg-blue-500 text-white rounded-br-none"
-            : "bg-gray-200 text-gray-800 rounded-bl-none"
-        }`}
-      >
-        {!isUserMessage && (
-          <p className="text-xs font-semibold text-gray-600 mb-1">
-            {message.name}
-          </p>
+    <div className={`chat-bubble ${message.uid === user.uid ? "right" : ""}`}>
+      <img
+        className="chat-bubble__left"
+        src={message.avatar}
+        alt="user avatar"
+      />
+      <div className="chat-bubble__right">
+        <p className="user-name">{message.name}</p>
+        <p className="user-message">{message.text}</p>
+        {message.createdAt && (
+          <span className="message-time">
+            {new Date(message.createdAt.seconds * 1000).toLocaleTimeString()}
+          </span>
         )}
-        <p>{message.text}</p>
       </div>
-
-      {/* Avatar for self (on right) */}
-      {isUserMessage && (
-        <img
-          src={message.avatar}
-          alt="user avatar"
-          className="w-8 h-8 rounded-full"
-        />
-      )}
     </div>
   );
 };
