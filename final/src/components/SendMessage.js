@@ -5,12 +5,13 @@ import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 const SendMessage = ({ scroll }) => {
   const [message, setMessage] = useState("");
 
-  const sendMessage = async (event) => {
-    event.preventDefault();
+  const sendMessage = async (e) => {
+    e.preventDefault();
     if (message.trim() === "") {
-      alert("Enter valid message");
+      alert("Enter a valid message");
       return;
     }
+
     const { uid, displayName, photoURL } = auth.currentUser;
     await addDoc(collection(db, "messages"), {
       text: message,
@@ -19,20 +20,16 @@ const SendMessage = ({ scroll }) => {
       createdAt: serverTimestamp(),
       uid,
     });
+
     setMessage("");
     scroll.current.scrollIntoView({ behavior: "smooth" });
   };
+
   return (
-    <form onSubmit={(event) => sendMessage(event)} className="send-message">
-      <label htmlFor="messageInput" hidden>
-        Enter Message
-      </label>
+    <form onSubmit={sendMessage} className="send-message">
       <input
-        id="messageInput"
-        name="messageInput"
         type="text"
-        className="form-input__input"
-        placeholder="type message..."
+        placeholder="Type your message..."
         value={message}
         onChange={(e) => setMessage(e.target.value)}
       />
