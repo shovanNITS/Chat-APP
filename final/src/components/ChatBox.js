@@ -31,29 +31,19 @@ const ChatBox = () => {
       );
       setMessages(sortedMessages);
     });
-
     return () => unsubscribe();
   }, []);
 
   return (
-    <main className="flex flex-col h-screen bg-gray-50">
-      {/* Chat Header */}
-      <header className="bg-white shadow px-6 py-4 flex items-center justify-between">
-        <h1 className="text-lg font-semibold text-gray-800">Chat Room</h1>
-      </header>
-
-      {/* Messages */}
-      <div className="flex-1 overflow-y-auto px-6 py-4 space-y-4 bg-gray-100">
+    <main className="chat-box">
+      <div className="messages-wrapper">
         {messages?.map((message) => (
           <Message key={message.id} message={message} />
         ))}
+        {/* scroll to latest */}
         <span ref={scroll}></span>
       </div>
-
-      {/* Input Area */}
-      <footer className="bg-white shadow px-6 py-4">
-        <SendMessage scroll={scroll} />
-      </footer>
+      <SendMessage scroll={scroll} />
     </main>
   );
 };
