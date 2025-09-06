@@ -17,19 +17,24 @@ const NavBar = () => {
   };
 
   return (
-    <nav className="nav-bar">
-      <h1>React Chat</h1>
+    <nav className="sticky top-0 z-10 bg-white shadow flex items-center justify-between px-6 py-3">
+      {/* App Title */}
+      <h1 className="text-lg font-semibold text-gray-800">React Chat</h1>
+
+      {/* Auth Buttons */}
       {user ? (
-        <button onClick={signOut} className="sign-out" type="button">
+        <button
+          onClick={signOut}
+          className="px-4 py-2 rounded-md bg-red-500 text-white text-sm font-medium hover:bg-red-600 transition"
+        >
           Sign Out
         </button>
       ) : (
-        <button className="sign-in">
+        <button onClick={googleSignIn} type="button">
           <img
-            onClick={googleSignIn}
             src={GoogleSignin}
             alt="sign in with google"
-            type="button"
+            className="h-10"
           />
         </button>
       )}
