@@ -10,18 +10,36 @@ const Welcome = () => {
   };
 
   return (
-    <main className="welcome">
-      <h2>Welcome to React Chat.</h2>
-      <img src="/logo512.png" alt="ReactJs logo" width={50} height={50} />
-      <p>Sign in with Google to chat with with your fellow React Developers.</p>
-      <button className="sign-in">
+    <main className="flex h-screen items-center justify-center bg-gray-100 px-4">
+      <div className="bg-white rounded-2xl shadow-md p-8 max-w-md w-full text-center">
+        {/* Logo */}
         <img
-          onClick={googleSignIn}
-          src={GoogleSignin}
-          alt="sign in with google"
-          type="button"
+          src="/logo512.png"
+          alt="ReactJs logo"
+          className="mx-auto mb-4 w-16 h-16"
         />
-      </button>
+
+        {/* Title */}
+        <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+          Welcome to React Chat
+        </h2>
+        <p className="text-gray-600 mb-6 text-sm">
+          Sign in with Google to chat with your fellow React developers.
+        </p>
+
+        {/* Google Sign-In */}
+        <button
+          onClick={googleSignIn}
+          type="button"
+          className="mx-auto block"
+        >
+          <img
+            src={GoogleSignin}
+            alt="sign in with google"
+            className="h-12"
+          />
+        </button>
+      </div>
     </main>
   );
 };
